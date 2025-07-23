@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useState } from 'react'
+import CodeMirror, { type BasicSetupOptions } from '@uiw/react-codemirror'
+import { filterDSL } from './extensions/filter-dsl'
+import { dslSyntaxHighlight } from './extensions/syntax-highlight'
+import { dslAutocompletion } from './extensions/autocomplete'
+import { dslLinter } from './extensions/lint'
+import { transformToAST } from './extensions/transformToAST'
+import type { ViewUpdate } from '@codemirror/view'
 
-function App() {
-  const [count, setCount] = useState(0)
+const setup: BasicSetupOptions = {
+  lineNumbers: false,
+  foldGutter: false,
+  highlightActiveLine: false,
+}
+
+export function App() {
+  const [code, setCode] = useState('')
+
+  const handleChange = (value: string, viewUpdate: ViewUpdate) => {
+    setCode(value)
+    console.log("transformToAST", transformToAST(viewUpdate.state))
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="content">
+        <CodeMirror
+          value={code}
+          onChange={handleChange}
+          className='editor'
+          basicSetup={setup}
+          extensions={[filterDSL, dslSyntaxHighlight, dslAutocompletion, dslLinter]}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
-export default App

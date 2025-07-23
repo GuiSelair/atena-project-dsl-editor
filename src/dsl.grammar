@@ -1,0 +1,70 @@
+@top File { Expression+ }
+
+@skip { space }
+
+@tokens {
+  space { @whitespace+ }
+  Identifier { $[A-Za-z_]+ }
+  String { '"' !["]* '"' }
+  Number { $[0-9]+ }
+}
+
+Expression {
+  MathExpr
+}
+
+
+MathExpr {
+  MathTerm (MathOperators MathTerm)*
+}
+
+MathTerm {
+  Number
+| FunctionCall
+| "(" MathExpr ")"
+}
+
+MathOperators { "+" | "-" | "*" | "/" | "=" }
+
+FunctionCall {
+  ToIntFunction     |
+  ToStringFunction  |
+  ToFloatFunction   |
+  ToTimestampFunction |
+  UppercaseFunction |
+  LowercaseFunction
+}
+
+CommonParamList {
+  CommomFunctionParam ("," CommomFunctionParam)*
+}
+
+CommomFunctionParam {
+  String
+| Number
+| Identifier
+}
+
+ToIntFunction {
+  "toInt" "(" String ")"
+}
+
+ToStringFunction {
+  "toString" "(" Number ")"
+}
+
+ToFloatFunction {
+  "toFloat" "(" String ")"
+}
+
+ToTimestampFunction {
+  "toTimestamp" "(" String ")"
+}
+
+UppercaseFunction {
+  "uppercase" "(" String ")"
+}
+
+LowercaseFunction {
+  "lowercase" "(" String ")"
+}
