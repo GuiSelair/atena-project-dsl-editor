@@ -2,7 +2,7 @@
 // @ts-ignore: No type definitions for dsl-parser.js
 import { parser } from '../dsl-parser.js';
 import type { EditorState } from '@codemirror/state';
-import { availableFunctions } from '../constants/available-functions';
+import { availableFunctions } from '../constants/available-functions.js';
 import { TreeCursor } from '@lezer/common';
 
 export function transformToAST(state: EditorState) {

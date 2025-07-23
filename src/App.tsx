@@ -5,7 +5,7 @@ import { filterDSL } from './extensions/filter-dsl'
 import { dslSyntaxHighlight } from './extensions/syntax-highlight'
 import { dslAutocompletion } from './extensions/autocomplete'
 import { dslLinter } from './extensions/lint'
-import { transformToAST } from './extensions/transformToAST'
+import { transformToAST } from './helpers/transform-ast'
 import type { ViewUpdate } from '@codemirror/view'
 
 const setup: BasicSetupOptions = {
