@@ -2,7 +2,7 @@
 	<img src=".github/athena-project-cover.png" alt="Atena"/>
 	<br/>
 	<br/>
-	<h1><strong>Projeto Atena - React Flow</strong></h1>
+	<h1><strong>Projeto Atena - Editor DSL</strong></h1>
 </div>
 
 ### Introdução
